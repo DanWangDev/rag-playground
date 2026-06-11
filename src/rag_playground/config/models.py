@@ -30,8 +30,7 @@ def resolve_chat_config() -> tuple[ModelProvider, str]:
             provider = OllamaProvider(host=settings.ollama_host)
         case _:
             raise ValueError(
-                f"Unknown chat provider: {settings.chat_provider!r}. "
-                f"Supported: ollama"
+                f"Unknown chat provider: {settings.chat_provider!r}. Supported: ollama"
             )
     return provider, settings.chat_model
 

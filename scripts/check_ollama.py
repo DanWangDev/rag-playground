@@ -20,7 +20,9 @@ from rag_playground.config.providers.ollama import OllamaProvider
 
 async def main() -> None:
     parser = argparse.ArgumentParser(description="Check Ollama connectivity and models")
-    parser.add_argument("--verbose", "-v", action="store_true", help="Show detailed output")
+    parser.add_argument(
+        "--verbose", "-v", action="store_true", help="Show detailed output"
+    )
     args = parser.parse_args()
 
     print("🔍 Checking Ollama connectivity...")
@@ -66,7 +68,9 @@ async def main() -> None:
 
     if not (chat_available and embed_available):
         print()
-        print("💡 Tip: Run `python scripts/pull_models.py` to pull all required models.")
+        print(
+            "💡 Tip: Run `python scripts/pull_models.py` to pull all required models."
+        )
 
     await provider.close()
 

@@ -1,7 +1,5 @@
 """Smoke tests for the config layer and shared types."""
 
-import pytest
-
 from rag_playground.config.env import settings
 from rag_playground.config.models import resolve_chat_config, resolve_embed_config
 from rag_playground.config.providers.ollama import OllamaProvider
@@ -76,7 +74,6 @@ class TestMockProvider:
     """Verify the mock provider works for testing."""
 
     async def test_mock_chat(self, mock_provider: MockProvider):
-        messages = [{"role": "user", "content": "Tell me about machine learning"}]
         from rag_playground.config.providers.base import ChatMessage
 
         msgs = [ChatMessage(role="user", content="Tell me about machine learning")]

@@ -8,8 +8,6 @@ Key Learning Points:
 
 import math
 
-import pytest
-
 
 def assert_valid_embedding(vector: list[float], expected_dimensions: int = 0) -> None:
     """Assert that a vector looks like a valid embedding.
@@ -23,9 +21,9 @@ def assert_valid_embedding(vector: list[float], expected_dimensions: int = 0) ->
     assert len(vector) > 0, "Embedding vector should not be empty"
 
     if expected_dimensions > 0:
-        assert (
-            len(vector) == expected_dimensions
-        ), f"Expected {expected_dimensions} dimensions, got {len(vector)}"
+        assert len(vector) == expected_dimensions, (
+            f"Expected {expected_dimensions} dimensions, got {len(vector)}"
+        )
 
     for v in vector:
         assert not math.isnan(v), "Embedding contains NaN"
@@ -42,9 +40,9 @@ def assert_similarity_between(
     max_val: float = 1.0,
 ) -> None:
     """Assert a similarity score is within the expected range."""
-    assert (
-        min_val <= score <= max_val
-    ), f"Similarity {score:.4f} not in range [{min_val}, {max_val}]"
+    assert min_val <= score <= max_val, (
+        f"Similarity {score:.4f} not in range [{min_val}, {max_val}]"
+    )
 
 
 def assert_vector_close(
@@ -63,12 +61,14 @@ def assert_chunk_valid(chunk) -> None:
     assert chunk.id, "Chunk should have an id"
     assert chunk.content, "Chunk should have content"
     assert chunk.document_id, "Chunk should have a document_id"
-    assert chunk.chunk_index >= 0, f"chunk_index should be >= 0, got {chunk.chunk_index}"
+    assert chunk.chunk_index >= 0, (
+        f"chunk_index should be >= 0, got {chunk.chunk_index}"
+    )
 
 
 def assert_search_results_ordered(results: list) -> None:
     """Assert search results are in descending score order."""
     for i in range(len(results) - 1):
-        assert (
-            results[i].score >= results[i + 1].score
-        ), f"Results not ordered: rank {results[i].rank} ({results[i].score}) < rank {results[i+1].rank} ({results[i+1].score})"
+        assert results[i].score >= results[i + 1].score, (
+            f"Results not ordered: rank {results[i].rank} ({results[i].score}) < rank {results[i + 1].rank} ({results[i + 1].score})"
+        )

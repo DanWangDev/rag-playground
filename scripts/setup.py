@@ -19,9 +19,13 @@ from rag_playground.config.env import settings
 
 
 async def main() -> None:
-    parser = argparse.ArgumentParser(description="Bootstrap the RAG playground environment")
+    parser = argparse.ArgumentParser(
+        description="Bootstrap the RAG playground environment"
+    )
     parser.add_argument("--skip-pull", action="store_true", help="Skip pulling models")
-    parser.add_argument("--data-dir", default=settings.data_dir, help="Data directory path")
+    parser.add_argument(
+        "--data-dir", default=settings.data_dir, help="Data directory path"
+    )
     args = parser.parse_args()
 
     print("🚀 RAG Playground Setup")

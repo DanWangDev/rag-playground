@@ -12,7 +12,6 @@ Key Learning Points:
 
 import argparse
 import os
-import sys
 
 
 def main() -> None:

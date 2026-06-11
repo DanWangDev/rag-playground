@@ -8,7 +8,6 @@ Key Learning Points:
 
 import pytest
 
-from rag_playground.config.env import settings
 from rag_playground.shared.types import Chunk, Document, SearchResult
 from tests.helpers.mock_provider import MockProvider
 

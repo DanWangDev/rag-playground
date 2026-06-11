@@ -25,7 +25,9 @@ async def pull_model(host: str, model: str) -> bool:
 
     try:
         async with httpx.AsyncClient(base_url=host, timeout=600.0) as client:
-            async with client.stream("POST", "/api/pull", json={"name": model}) as response:
+            async with client.stream(
+                "POST", "/api/pull", json={"name": model}
+            ) as response:
                 response.raise_for_status()
                 async for line in response.aiter_lines():
                     if not line.strip():
@@ -63,8 +65,12 @@ async def pull_model(host: str, model: str) -> bool:
 
 async def main() -> None:
     parser = argparse.ArgumentParser(description="Pull required Ollama models")
-    parser.add_argument("--chat-model", default=settings.chat_model, help="Chat model to pull")
-    parser.add_argument("--embed-model", default=settings.embed_model, help="Embedding model to pull")
+    parser.add_argument(
+        "--chat-model", default=settings.chat_model, help="Chat model to pull"
+    )
+    parser.add_argument(
+        "--embed-model", default=settings.embed_model, help="Embedding model to pull"
+    )
     args = parser.parse_args()
 
     print("🚀 Pulling required Ollama models...")
