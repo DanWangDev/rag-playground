@@ -13,7 +13,7 @@ Key Learning Points:
 
 from abc import ABC, abstractmethod
 from collections.abc import AsyncIterator
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 
 @dataclass
