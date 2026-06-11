@@ -4,10 +4,14 @@ Key Learning Points:
   - conftest.py is auto-discovered by pytest — fixtures here are available everywhere
   - Fixtures with 'session' scope are created once and reused across all tests
   - Mock providers let tests run without Ollama — fast, deterministic, offline
+  - autouse fixtures patch config resolution so EVERY test uses mocks
 """
+
+from unittest.mock import patch
 
 import pytest
 
+from rag_playground.config import models
 from rag_playground.shared.types import Chunk, Document, SearchResult
 from tests.helpers.mock_provider import MockProvider
 
@@ -20,6 +24,32 @@ def mock_provider() -> MockProvider:
     call a real Ollama server.
     """
     return MockProvider()
+
+
+@pytest.fixture(autouse=True)
+def _patch_providers(mock_provider: MockProvider):
+    """Automatically patch config resolution in all tests.
+
+    Every test gets the mock provider — no real Ollama needed.
+    Tests that need real Ollama should use a separate integration test config.
+    """
+    # Clear LRU caches so patches take effect
+    models.resolve_chat_config.cache_clear()
+    models.resolve_embed_config.cache_clear()
+
+    with (
+        patch.object(
+            models,
+            "resolve_chat_config",
+            return_value=(mock_provider, "mock-model"),
+        ),
+        patch.object(
+            models,
+            "resolve_embed_config",
+            return_value=(mock_provider, "mock-model", 4),
+        ),
+    ):
+        yield
 
 
 @pytest.fixture(scope="session")
