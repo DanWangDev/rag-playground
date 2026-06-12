@@ -1,5 +1,7 @@
 # RAG Playground
 
+[中文文档](README_CN.md)
+
 > Hands-on RAG learning playground — build every component of Retrieval-Augmented Generation from scratch in Python.
 > No frameworks, no cloud APIs — just you, Python, and a local LLM.
 
