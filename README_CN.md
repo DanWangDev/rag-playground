@@ -27,26 +27,51 @@
 
 ## 快速开始
 
-**前置条件：** Python 3.11+ 和 [Ollama](https://ollama.com)
+**前置条件：** Python 3.11+、Node.js 18+ 和 [Ollama](https://ollama.com)
 
 ```bash
-# 1. 安装 Ollama
-#    macOS:   brew install ollama
-#    Windows: winget install Ollama.Ollama
-#    Linux:   curl -fsSL https://ollama.com/install.sh | sh
+# 1. 安装并启动 Ollama
+#    macOS:   brew install ollama && ollama serve
+#    Windows: winget install Ollama.Ollama && ollama serve
+#    Linux:   curl -fsSL https://ollama.com/install.sh | sh && ollama serve
 
-# 2. 启动 Ollama（保持运行）
-ollama serve
-
-# 3. 克隆项目，安装依赖并拉取模型
+# 2. 克隆项目并一键启动
 git clone https://github.com/DanWangDev/rag-playground.git
 cd rag-playground
-pip install -e ".[dev]"
-python scripts/pull_models.py
-python scripts/setup.py
+make start
+```
 
-# 4. 运行第一个练习
+`make start` 会处理一切：检查前置条件、拉取模型、安装依赖、启动后端和前端。浏览器会自动打开。
+
+**就这样。** 打开 `http://localhost:5173` 通过 UI 与 RAG 流水线交互，或访问 `http://localhost:8000/docs` 查看 API 文档。
+
+### 常用命令
+
+```bash
+make start         # 引导并启动所有服务
+make stop          # 关闭所有服务
+make status        # 查看服务状态
+make check         # 仅验证前置条件（不启动）
+make test          # 运行所有测试（无需 Ollama）
+make clean         # 清理缓存和构建产物
+```
+
+### Windows（PowerShell）
+
+```powershell
+.\start.ps1                  # 启动所有服务
+.\start.ps1 -Stop            # 停止所有服务
+.\start.ps1 -Status          # 查看运行状态
+.\start.ps1 -CheckOnly       # 仅验证前置条件
+```
+
+### 命令行练习
+
+```bash
 python -m rag_playground.m02_data_loading.exercise
+python -m rag_playground.m03_chunking.exercise
+python -m rag_playground.m07_rag_pipeline.exercise
+# ... 共 8 个模块
 ```
 
 ## 学习路径（8 个模块）

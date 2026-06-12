@@ -27,26 +27,51 @@
 
 ## Quick Start
 
-**Prerequisites:** Python 3.11+ and [Ollama](https://ollama.com)
+**Prerequisites:** Python 3.11+, Node.js 18+, and [Ollama](https://ollama.com)
 
 ```bash
-# 1. Install Ollama
-#    macOS:   brew install ollama
-#    Windows: winget install Ollama.Ollama
-#    Linux:   curl -fsSL https://ollama.com/install.sh | sh
+# 1. Install Ollama and start it
+#    macOS:   brew install ollama && ollama serve
+#    Windows: winget install Ollama.Ollama && ollama serve
+#    Linux:   curl -fsSL https://ollama.com/install.sh | sh && ollama serve
 
-# 2. Start Ollama (keep this running)
-ollama serve
-
-# 3. Clone, install, and pull models
+# 2. Clone and launch (one command)
 git clone https://github.com/DanWangDev/rag-playground.git
 cd rag-playground
-pip install -e ".[dev]"
-python scripts/pull_models.py
-python scripts/setup.py
+make start
+```
 
-# 4. Run your first exercise
+`make start` handles everything: checks prerequisites, pulls models, installs deps, and launches both backend and frontend. The browser opens automatically.
+
+**That's it.** Open `http://localhost:5173` to interact with the RAG pipeline through the UI, or `http://localhost:8000/docs` for the API.
+
+### Commands
+
+```bash
+make start         # Bootstrap everything and launch
+make stop          # Shut down all services
+make status        # Check what's running
+make check         # Verify prerequisites only (no launch)
+make test          # Run all tests (no Ollama needed)
+make clean         # Remove caches and build artifacts
+```
+
+### Windows (PowerShell)
+
+```powershell
+.\start.ps1                  # Start everything
+.\start.ps1 -Stop            # Stop all services
+.\start.ps1 -Status          # Check what's running
+.\start.ps1 -CheckOnly       # Verify prerequisites only
+```
+
+### CLI Exercises
+
+```bash
 python -m rag_playground.m02_data_loading.exercise
+python -m rag_playground.m03_chunking.exercise
+python -m rag_playground.m07_rag_pipeline.exercise
+# ... all 8 modules available
 ```
 
 ## Learning Path (8 Modules)
